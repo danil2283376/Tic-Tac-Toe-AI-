@@ -51,124 +51,16 @@ namespace ConsoleApp1
             }
             else
             {
-                int scoreEnemyPieces = maxNegativeInt;
-                int bestMoveY = 0;
-                int bestMoveX = 0;
                 DataBot dataBot = new DataBot(0, 0, maxNegativeInt);
 
-                //CheckMainDiagonal(ref dataBot, gameField, tempY, tempX);
-                int mainCountPieces = 0;
-                int mainDiagonalX = 0;
-                for (int mainDiagonalY = 0; mainDiagonalY <= tempY; mainDiagonalY++)
-                {
-                    if (gameField.Field[mainDiagonalY, mainDiagonalX] == this._playerSide)
-                        mainCountPieces++;
-                    mainDiagonalX++;
-                }
-                mainDiagonalX = 0;
-                if (mainCountPieces > scoreEnemyPieces)
-                {
-                    scoreEnemyPieces = mainCountPieces;
-                    for (int mainHorizontalY = tempY; mainHorizontalY >= 0; mainHorizontalY--)
-                    {
-                        if (gameField.Field[mainHorizontalY, mainDiagonalX] == '_')
-                        {
-                            bestMoveY = mainHorizontalY;
-                            bestMoveX = mainDiagonalX;
-                            break;
-                        }
-                        mainDiagonalX++;
-                    }
-                }
-                //CheckHorizontalLines(ref dataBot, gameField, tempY, tempX);
-                for (int horizontalLineY = 0; horizontalLineY <= tempY; horizontalLineY++)
-                {
-                    int inSideCountPieces = 0;
-                    for (int horizontalLineX = 0; horizontalLineX <= tempX; horizontalLineX++)
-                    {
-                        if (gameField.Field[horizontalLineY, horizontalLineX] == this._playerSide)
-                            inSideCountPieces++;
-                    }
-
-                    if (inSideCountPieces > scoreEnemyPieces)
-                    {
-                        //Console.WriteLine($"inSideCountPieces: {inSideCountPieces}");
-                        scoreEnemyPieces = inSideCountPieces;
-                        for (int horizontalLineX = 0; horizontalLineX <= tempX; horizontalLineX++)  
-                        {
-                            //Console.WriteLine($"{gameField.Field[horizontalLineY, horizontalLineX]}");
-                            if (gameField.Field[horizontalLineY, horizontalLineX] == '_')
-                            {
-                                bestMoveY = horizontalLineY;
-                                bestMoveX = horizontalLineX;
-                                break;
-                            }
-                            //else
-                            //{
-                            //    bestMoveY = 0;
-                            //    bestMoveX = 0;
-                            //}
-                        }
-                    }
-                }
-                for (int verticalLineX = 0; verticalLineX <= tempX; verticalLineX++)
-                {
-                    int inSideCountPieces = 0;
-                    for (int verticalLineY = 0; verticalLineY <= tempY; verticalLineY++)
-                    {
-                        if (gameField.Field[verticalLineY, verticalLineX] == this._playerSide)
-                            inSideCountPieces++;
-                    }
-                    if (inSideCountPieces > scoreEnemyPieces)
-                    {
-                        Console.WriteLine($"{inSideCountPieces}");
-                        scoreEnemyPieces = inSideCountPieces;
-                        for (int symbolInLine = 0; symbolInLine <= tempY; symbolInLine++)
-                        {
-                            Console.WriteLine($"{gameField.Field[symbolInLine, verticalLineX]}");
-                            if (gameField.Field[symbolInLine, verticalLineX] == '_')
-                            {
-                                bestMoveY = symbolInLine;
-                                bestMoveX = verticalLineX;
-                                break;
-                            }
-                            //else
-                            //{
-                            //    bestMoveY = 0;
-                            //    bestMoveX = 0;
-                            //}
-                        }
-                    }
-                }
-                //CheckVerticalLines(ref dataBot, gameField, tempY, tempX);
-                //CheckSideDiagonal(ref dataBot, gameField, tempY, tempX);
-                int sideCountPieces = 0;
-                int sideDiagonalX = tempX;
-                for (int sideDiagonalY = 0; sideDiagonalY <= tempY; sideDiagonalY++)
-                {
-                    if (gameField.Field[sideDiagonalY, sideDiagonalX] == this._playerSide)
-                        sideCountPieces++;
-                    sideDiagonalX--;
-                }
-                sideDiagonalX = tempX;
-                if (sideCountPieces > scoreEnemyPieces)
-                {
-                    scoreEnemyPieces = sideCountPieces;
-                    for (int searchEmptySymbolY = 0; searchEmptySymbolY <= tempY; searchEmptySymbolY++)
-                    {
-                        if (gameField.Field[searchEmptySymbolY, sideDiagonalX] == '_')
-                        {
-                            bestMoveY = searchEmptySymbolY;
-                            bestMoveX = sideDiagonalX;
-                        }
-                        sideDiagonalX--;
-                    }
-                }
-                if (/*dataBot.*/bestMoveY == 0 && /*dataBot.*/bestMoveX == 0)
+                CheckMainDiagonal(ref dataBot, gameField, tempY, tempX);
+                CheckHorizontalLines(ref dataBot, gameField, tempY, tempX);
+                CheckVerticalLines(ref dataBot, gameField, tempY, tempX);
+                CheckSideDiagonal(ref dataBot, gameField, tempY, tempX);
+                if (dataBot.BestMoveY == 0 && dataBot.BestMoveX == 0)
                     RandMove(ref gameField);
                 else
-                    gameField.Field[/*dataBot.*/bestMoveY, /*dataBot.*/bestMoveX] = _computerSide;
-                //Thread.Sleep(5000);
+                    gameField.Field[dataBot.BestMoveY, dataBot.BestMoveX] = _computerSide;
             }
         }
 
@@ -249,22 +141,15 @@ namespace ConsoleApp1
 
                 if (inSideCountPieces > dataBot.ScoreEnemyPieces)
                 {
-                    //Console.WriteLine($"inSideCountPieces: {inSideCountPieces}");
                     dataBot.ScoreEnemyPieces = inSideCountPieces;
-                    for (int horizontalLineX = 0; horizontalLineX < tempX; horizontalLineX++)
+                    for (int horizontalLineX = 0; horizontalLineX <= tempX; horizontalLineX++)
                     {
-                        //Console.WriteLine($"{gameField.Field[horizontalLineY, horizontalLineX]}");
                         if (gameField.Field[horizontalLineY, horizontalLineX] == '_')
                         {
                             dataBot.BestMoveY = horizontalLineY;
                             dataBot.BestMoveX = horizontalLineX;
                             break;
                         }
-                        //else
-                        //{
-                        //    bestMoveY = 0;
-                        //    bestMoveX = 0;
-                        //}
                     }
                 }
             }
@@ -284,19 +169,15 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine($"{inSideCountPieces}");
                     dataBot.ScoreEnemyPieces = inSideCountPieces;
-                    for (int symbolInLine = 0; symbolInLine < tempY; symbolInLine++)
+                    for (int symbolInLine = 0; symbolInLine <= tempY; symbolInLine++)
                     {
+                        Console.WriteLine($"{gameField.Field[symbolInLine, verticalLineX]}");
                         if (gameField.Field[symbolInLine, verticalLineX] == '_')
                         {
                             dataBot.BestMoveY = symbolInLine;
                             dataBot.BestMoveX = verticalLineX;
                             break;
                         }
-                        //else
-                        //{
-                        //    bestMoveY = 0;
-                        //    bestMoveX = 0;
-                        //}
                     }
                 }
             }
