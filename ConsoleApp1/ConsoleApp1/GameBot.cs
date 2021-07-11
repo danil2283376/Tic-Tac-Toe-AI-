@@ -39,7 +39,7 @@ namespace ConsoleApp1
             int tempX = gameField.X - 1;
             if (stageAI == 0)
             {
-                CloseMainDiagonal(ref gameField, tempY, tempX);
+                CloseMainDiagonal(ref gameField);
             }
             else
             {
@@ -77,7 +77,7 @@ namespace ConsoleApp1
             }
         }
 
-        private void CloseMainDiagonal(ref GameField gameField, int tempY, int tempX) 
+        private void CloseMainDiagonal(ref GameField gameField) 
         {
             bool firstCellBusy = false;
             if (gameField.Field[0, 0] == this._playerSide)
