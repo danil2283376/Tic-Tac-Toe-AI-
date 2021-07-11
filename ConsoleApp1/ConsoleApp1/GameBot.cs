@@ -26,19 +26,11 @@ namespace ConsoleApp1
         private char _computerSide;
         private char _playerSide;
 
-        private int countRandMoves;
-        private int maxRandMoves;
-
         private readonly int maxNegativeInt = -2147483648;
-        public GameBot(char computerSide, char playerSide, int y, int x, int maxRandMoves)
+        public GameBot(char computerSide, char playerSide)
         {
             this._computerSide = computerSide;
             this._playerSide = playerSide;
-            this.countRandMoves = 0;
-            if (maxRandMoves < 4)
-                this.maxRandMoves = maxRandMoves;
-            else
-                this.maxRandMoves = (y * x) - y;
         }
 
         public void BestMoveAI(ref GameField gameField, int stageAI)
@@ -78,7 +70,6 @@ namespace ConsoleApp1
                 if (field.Field[y, x] == '_')
                 {
                     field.Field[y, x] = _computerSide;
-                    this.countRandMoves++;
                     this.lastMoveY = y;
                     this.lastMoveX = x;
                     isEmptyCells = false;
@@ -189,11 +180,9 @@ namespace ConsoleApp1
                 }
                 if (inSideCountPieces >= dataBot.ScoreEnemyPieces)
                 {
-                    Console.WriteLine($"{inSideCountPieces}");
                     dataBot.ScoreEnemyPieces = inSideCountPieces;
                     for (int symbolInLine = 0; symbolInLine <= tempY; symbolInLine++)
                     {
-                        Console.WriteLine($"{gameField.Field[symbolInLine, verticalLineX]}");
                         if (gameField.Field[symbolInLine, verticalLineX] == '_')
                         {
                             dataBot.BestMoveY = symbolInLine;

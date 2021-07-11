@@ -143,7 +143,7 @@ namespace ConsoleApp1
                 Console.Clear();
                 gameField.OutputField();
                 char computerSide = playerSide == 'X' ? 'O' : 'X';
-                GameBot gameBot = new GameBot(computerSide, playerSide, gameField.Y, gameField.X, gameField.X);
+                GameBot gameBot = new GameBot(computerSide, playerSide);
                 string cross;
 
                 bool botFirst;
@@ -212,8 +212,8 @@ namespace ConsoleApp1
         static public void ComputerVsComputer() 
         {
             GameField gameField = CreateGameField();
-            GameBot bot1 = new GameBot('X', 'O', gameField.Y, gameField.X, gameField.X * gameField.Y);
-            GameBot bot2 = new GameBot('O', 'X', gameField.Y, gameField.X, gameField.X * gameField.Y);
+            GameBot bot1 = new GameBot('X', 'O');
+            GameBot bot2 = new GameBot('O', 'X');
             char cross = 'X';
             while (true) 
             {
