@@ -165,11 +165,10 @@ namespace ConsoleApp1
                         Console.WriteLine("Введите координаты:");
                         Console.Write("y = ");
                         int y;
-                        bool isIntY = int.TryParse(Console.ReadLine(), out y);//Convert.ToInt32(Console.ReadLine());
+                        bool isIntY = int.TryParse(Console.ReadLine(), out y);
                         Console.Write("x = ");
                         int x;
-                        /*int x*/
-                        bool isIntX = int.TryParse(Console.ReadLine(), out x);//Convert.ToInt32(Console.ReadLine());
+                        bool isIntX = int.TryParse(Console.ReadLine(), out x);
                         if (y > gameField.Y || y < 0 || x > gameField.X || x < 0 || isIntY == false || isIntX == false)
                         {
                             Error("Координаты вне поля попробуйте сначала!", 1000);
@@ -193,7 +192,6 @@ namespace ConsoleApp1
                         cross = "Human";
                         if (botFirst == false)
                             gameBot.BestMoveAI(ref gameField, stageAI);
-                        //position = gameBot.Minimax(gameField, 5, true, 0, 0, computerSide);
                         else
                             gameBot.BestMoveAI(ref gameField, stageAI);
                         CheckWins(gameField, gameBot.lastMoveY, gameBot.lastMoveX, computerSide);
@@ -222,14 +220,14 @@ namespace ConsoleApp1
                 if (cross == 'X')
                 {
                     bot1.RandMove(ref gameField);
-                    CheckWins(gameField, bot1.lastMoveY, bot1.lastMoveX, 'X');
+                    CheckWins(gameField, bot1.lastMoveY, bot1.lastMoveX, cross);
                     CheckDraw(gameField);
                     cross = 'O';
                 }
                 else 
                 {
                     bot2.RandMove(ref gameField);
-                    CheckWins(gameField, bot2.lastMoveY, bot2.lastMoveX, 'X');
+                    CheckWins(gameField, bot2.lastMoveY, bot2.lastMoveX, cross);
                     CheckDraw(gameField);
                     cross = 'X';
                 }

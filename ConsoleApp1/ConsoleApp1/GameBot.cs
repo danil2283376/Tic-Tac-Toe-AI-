@@ -64,6 +64,28 @@ namespace ConsoleApp1
             }
         }
 
+        public void RandMove(ref GameField field)
+        {
+            Random randomY = new Random();
+            Random randomX = new Random();
+
+            bool isEmptyCells = true;
+            while (isEmptyCells == true)
+            {
+                int y = randomY.Next(0, field.Y);
+                int x = randomX.Next(0, field.X);
+
+                if (field.Field[y, x] == '_')
+                {
+                    field.Field[y, x] = _computerSide;
+                    this.countRandMoves++;
+                    this.lastMoveY = y;
+                    this.lastMoveX = x;
+                    isEmptyCells = false;
+                }
+            }
+        }
+
         private void CloseMainDiagonal(ref GameField gameField, int tempY, int tempX) 
         {
             bool firstCellBusy = false;
@@ -75,7 +97,7 @@ namespace ConsoleApp1
                 gameField.Field[0, 0] = this._computerSide;
         }
 
-        private void CheckMainDiagonal(ref DataBot dataBot, GameField gameField, int tempY, int tempX) 
+        private void CheckMainDiagonal(ref DataBot dataBot, GameField gameField, int tempY, int tempX)
         {
             int mainCountPieces = 0;
             int mainDiagonalX = 0;
@@ -102,7 +124,7 @@ namespace ConsoleApp1
             }
         }
 
-        public void CheckSideDiagonal(ref DataBot dataBot, GameField gameField, int tempY, int tempX) 
+        private void CheckSideDiagonal(ref DataBot dataBot, GameField gameField, int tempY, int tempX) 
         {
             int sideCountPieces = 0;
             int sideDiagonalX = tempX;
@@ -183,26 +205,5 @@ namespace ConsoleApp1
             }
         }
 
-        public void RandMove(ref GameField field) 
-        {
-            Random randomY = new Random();
-            Random randomX = new Random();
-
-            bool isEmptyCells = true;
-            while (isEmptyCells == true) 
-            {
-                int y = randomY.Next(0, field.Y);
-                int x = randomX.Next(0, field.X);
-
-                if (field.Field[y, x] == '_')
-                {
-                    field.Field[y, x] = _computerSide;
-                    this.countRandMoves++;
-                    this.lastMoveY = y;
-                    this.lastMoveX = x;
-                    isEmptyCells = false;
-                }
-            }
-        }
     }
 }
