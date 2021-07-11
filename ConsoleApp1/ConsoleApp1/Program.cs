@@ -164,10 +164,13 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("Введите координаты:");
                         Console.Write("y = ");
-                        int y = Convert.ToInt32(Console.ReadLine());
+                        int y;
+                        bool isIntY = int.TryParse(Console.ReadLine(), out y);//Convert.ToInt32(Console.ReadLine());
                         Console.Write("x = ");
-                        int x = Convert.ToInt32(Console.ReadLine());
-                        if (y > gameField.Y || y < 0 || x > gameField.X || x < 0)
+                        int x;
+                        /*int x*/
+                        bool isIntX = int.TryParse(Console.ReadLine(), out x);//Convert.ToInt32(Console.ReadLine());
+                        if (y > gameField.Y || y < 0 || x > gameField.X || x < 0 || isIntY == false || isIntX == false)
                         {
                             Error("Координаты вне поля попробуйте сначала!", 1000);
                             gameField.OutputField();
